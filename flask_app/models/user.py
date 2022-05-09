@@ -17,6 +17,7 @@ class User:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.events = []
+        self.messages = []
 
     @classmethod
     def save(cls, data):
@@ -48,6 +49,19 @@ class User:
         if len(results) < 1:
             return False
         return cls(results[0])
+
+    @classmethod
+    def get_event_guests(cls, data):
+        query = """SELECT users.* 
+        FROM users
+        JOIN guests
+        ON users.id = guests.user_id
+        WHERE guests.event_id = %(event_id)s"""
+        results = connectToMySQL(cls.db).query_db(query, data)
+        guests = []
+        for row in results:
+            guests.append(cls(row))
+        return guests
 
     @staticmethod
     def validate_register(user):

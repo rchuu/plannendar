@@ -1,6 +1,7 @@
 from flask import flash
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask_app.models import user
+from flask_app.models import message
 
 
 class Event:
@@ -25,6 +26,11 @@ class Event:
         return connectToMySQL(cls.db).query_db(query, data)
 
     @classmethod
+    def add_guests(cls, data):
+        query = 'INSERT INTO guests (event_id, user_id) VALUES (%(event_id)s,%(user_id)s);'
+        return connectToMySQL(cls.db).query_db(query, data)
+
+    @classmethod
     def get_all(cls):
         query = '''SELECT * FROM events
         JOIN users
@@ -42,6 +48,8 @@ class Event:
                 "created_at": row["users.created_at"],
                 "updated_at": row["users.updated_at"]
             }
+            one_event.guests = user.User.get_event_guests(
+                {"event_id": one_event.id})
             one_event.creator = user.User(user_data)
             all_events.append(one_event)
         return all_events
@@ -67,14 +75,32 @@ class Event:
             one_event.creator = user.User(user_data)
         return one_event
 
-    @classmethod
+    @classmethod  # get by the ID, appending the messages into empty list
     def get_one(cls, data):
         query = """SELECT * FROM events
-        WHERE id = %(id)s;"""
+        LEFT JOIN messages
+        ON events.id = messages.event_id
+        WHERE events.id = %(id)s;"""
         results = connectToMySQL(cls.db).query_db(query, data)
-        return cls(results[0])
+        event = cls(results[0])
+        event.guests = user.User.get_event_guests({"event_id": event.id})
+        event.messages = []
+        for row in results:
+            message_row = {
+                "id": row['messages.id'],
+                "content": row['content'],
+                "user_id": row['messages.user_id'],
+                "event_id": row['event_id'],
+                "created_at": row['messages.created_at'],
+                "updated_at": row['messages.updated_at']
+            }
+            one_message = message.Message(message_row)
+            one_message.creator = user.User.get_from_id(
+                {"id": row["messages.user_id"]})  # grabbing events user_id
+            event.messages.append(one_message)
+        return event
 
-    @classmethod
+    @classmethod  # upate function
     def update(cls, data):
         query = """UPDATE events 
         SET event= %(event)s,
@@ -87,13 +113,13 @@ class Event:
         WHERE id= %(id)s;"""
         return connectToMySQL(cls.db).query_db(query, data)
 
-    @classmethod
+    @classmethod  # delete function
     def destroy(cls, data):
         query = """DELETE FROM events
         WHERE id = %(id)s;"""
         return connectToMySQL(cls.db).query_db(query, data)
 
-    @staticmethod
+    @staticmethod  # validating event details
     def validate_event(event):
         is_valid = True
         if len(event['event']) < 2:

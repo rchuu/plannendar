@@ -14,9 +14,13 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
             integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
             crossorigin="anonymous"></script>
+
     </head>
     <nav class="d-flex justify-content-between align-items-center mx-5 py-3 bg-dark text-light">
-        <h1>Plannendar</h1>
+        <div>
+            <h1>Plannendar</h1>
+            <img src="{{ url_for('static', filename='/img/plannendar_icon.png' ) }}">
+        </div>
         <div class="d-flex flex-column align-items-end">
             <div>
                 <h3 class="text-center">Welcome, {{user.first_name}} {{user.last_name}}</h3>
@@ -41,14 +45,15 @@
                 <tbody>
                     {% for event in events %}
                     <tr>
+                        {% if user.id in event.guests|map(attribute = "id") or user.id == event.creator.id %}
                         <td>
                             {{event.event}}
                         </td>
                         <td>
-                            {{event.start_date.strftime('%B %w %Y')}}
+                            {{event.start_date.strftime('%B %d, %Y')}}
                         </td>
                         <td>
-                            {{event.end_date.strftime('%B %w %Y')}}
+                            {{event.end_date.strftime('%B %d, %Y')}}
                         </td>
                         <td>
                             {{event.creator.first_name}}
@@ -60,6 +65,7 @@
                             <a href="/destroy/event/{{event.id}}">Remove</a>
                             {% endif %}
                         </td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>
