@@ -18,7 +18,7 @@
 
     <body class="bg-dark">
         <div
-            class="container d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle bg-secondary text-light">
+            class="container d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle bg-transparent text-secondary">
             <form class="content bg-transparent col-xs-12 col-sm-10 col-md-8 col-lg-6 mb-5" action="/login"
                 method="post">
                 <div class="form-group text-left p-2">
@@ -70,7 +70,10 @@
                 </div>
             </form>
         </div>
-
+        <div>
+            <img src="{{ url_for('static', filename='/img/Plannendar-logo-white.png') }}" class="w-10 img-fluid"
+                alt="icon">
+        </div>
         <div>
         </div>
     </body>

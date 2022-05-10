@@ -18,13 +18,15 @@
 
     <body class="bg-dark text-light">
         <nav class="d-flex justify-content-between align-items-center mx-5 py-3">
-            <h1>Plannendar</h1>
+            <a href="/dashboard" value="dashboard">
+                <img src="{{ url_for('static', filename='/img/Plannendar-logo-white.png') }}" class="w-25 img-fluid"
+                    alt="icon"></a>
             <div class="d-flex flex-column py-3 align-items-end">
                 <div>
                     <h3 class="text-center">Welcome, {{user.first_name}} {{user.last_name}}</h3>
                 </div>
-                <div><a href="/dashboard" value="dashboard" class="btn btn-primary">Dashboard</a></div>
-                <div><a href="/logout" value="Logout" class="btn btn-primary">Logout</a></div>
+                <div><a href="/dashboard" value="dashboard" class="btn btn-primary py-1 my-1">Dashboard</a></div>
+                <div><a href="/logout" value="Logout" class="btn btn-primary py-1 my-1">Logout</a></div>
             </div>
         </nav>
 

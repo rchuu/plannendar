@@ -18,18 +18,20 @@
 
     <body class="bg-dark text-light">
         <nav class="d-flex justify-content-between align-items-center mx-5 py-3">
-            <h1>Plannendar</h1>
+            <a href="/dashboard" value="dashboard">
+                <img src="{{ url_for('static', filename='/img/Plannendar-logo-white.png') }}" class="w-25 img-fluid"
+                    alt="icon"></a>
             <div class="d-flex flex-column py-3 align-items-end">
                 <div>
                     <h3 class="text-center">Welcome, {{user.first_name}} {{user.last_name}}</h3>
                 </div>
-                <div><a href="/dashboard" value="dashboard" class="btn btn-primary">Dashboard</a></div>
-                <div><a href="/logout" value="Logout" class="btn btn-primary">Logout</a></div>
+                <div><a href="/dashboard" value="dashboard" class="btn btn-primary py-1 my-1">Dashboard</a></div>
+                <div><a href="/logout" value="Logout" class="btn btn-primary py-1 my-1">Logout</a></div>
             </div>
         </nav>
 
         <div class="card col-8 mx-auto my-5 py-5 bg-secondary text-dark">
-            <div>
+            <div class="mx-5 py-5">
                 <h1 class="text-light text-center">View Event</h1>
 
                 <div class="card-title">
@@ -55,68 +57,90 @@
                     <h5>End Date:</h5>
                     <p>{{event.end_date.strftime('%B %d, %Y')}}</p>
                 </div>
+                <div>
+                    <form action="/add_guests" method="POST">
+                        <input type="hidden" name="event_id" value="{{event.id}}">
 
-                <form action="/add_guests" method="POST">
-                    <input type="hidden" name="event_id" value="{{event.id}}">
-
-                    <label for="email">Add Guest:</label>
-                    <select name="email" class="form-control">
-                        {% for guest in users %}
-                        <option value="{{guest.email}}">{{guest.email}}</option>
+                        <label for="email">Add Guest:</label>
+                        <select name="email" class="form-control">
+                            {% for guest in users %}
+                            <option value="{{guest.email}}">{{guest.email}}</option>
+                            {% endfor %}
+                            <div class="mx-5">
+                                <input type="submit" class="btn btn-primary my-2" value="Add">
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-header">
+                        <h3 class="text-dark">Guests:</h3>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for guest in event.guests %}
+                        <li class="list-group-item">{{guest.first_name}} {{guest.last_name}}</li>
+                        <!-- <li class="list-group-item">Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Vestibulum at eros</li> -->
                         {% endfor %}
-                        <div class="mx-5">
-                            <input type="submit" class="btn btn-primary">
-                        </div>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <!-- <div class="card-body text-center">
+                <h1>Guests:</h1>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for guest in event.guests %}
+                        <tr>
+                            <td>
+                                {{guest.first_name}}
+                            </td>
+                            <td>
+                                {{guest.last_name}}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div> -->
+            <div>
+                <form action="/post_message" method="POST" class="col-11 px-5 my-5 bg-dark text-light mx-auto">
+                    <h1 class="text-light text-center">Discussion</h1>
+                    <input type="hidden" name="event_id" value="{{event.id}}">
+                    <div class="form-group">
+                        <!-- <label for="content">Send Message:</label> -->
+                        <textarea name="content" cols="10" rows="10" class="form-control"></textarea>
+                    </div>
+                    <div class="py-2">
+                        <input type="submit" value="Post" class="btn btn-primary">
+                    </div>
                 </form>
-            </div>
-            <h3>Guests:</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for guest in event.guests %}
-                    <tr>
-                        <td>
-                            {{guest.first_name}}
-                        </td>
-                        <td>
-                            {{guest.last_name}}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <form action="/post_message" method="POST" class="col-11 px-5 my-5 bg-secondary text-dark mx-auto">
-                <h1 class="text-light text-center">Discussion</h1>
-                <input type="hidden" name="event_id" value="{{event.id}}">
-                <div class="form-group">
-                    <label for="content">Send Message:</label>
-                    <textarea name="content" cols="30" rows="5" class="form-control"></textarea>
-                </div>
-                <div class="py-2">
-                    <input type="submit" value="Post" class="btn btn-primary">
-                </div>
-            </form>
-            <div class="col-11 px-5 mx-auto">
-                <h1 class="text-light text-center">View Messages</h1>
-                <div class="form-group py-5 px-5">
-                    {% for message in event.messages %}
-                    <h4>{{message.creator.first_name}}</h4>
-                    <textarea name="message" cols="30" rows="5" class="form-control">{{message.content}}</textarea>
-                    {% if message.user_id == session.user_id %}
-                    <a href="/edit/message/{{message.id}}">Edit</a>
-                    <a href="/destroy/message/{{message.id}}">Remove</a>
-                    {% endif %}
-                    {% endfor %}
+                <div class="col-11 px-5 mx-auto">
+                    <h1 class="text-light text-center">View Messages</h1>
+                    <div class="form-group py-5 px-5">
+                        {% for message in event.messages %}
+                        <h4>{{message.creator.first_name}} {{message.creator.last_name}} wrote {{message.time_span()}}:
+                        </h4>
+                        <textarea name="message" cols="30" rows="5" class="form-control">{{message.content}}</textarea>
+                        {% if message.user_id == session.user_id %}
+                        <!-- <a href="/edit/message/{{message.id}}">Edit</a> -->
+                        <a href="/destroy/message/{{message.id}}">Remove</a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
-        </div>
     </body>
 
 </html>

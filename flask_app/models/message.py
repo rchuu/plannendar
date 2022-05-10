@@ -1,6 +1,7 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from datetime import datetime
 from flask_app.models import user
+import math
 
 
 class Message:
