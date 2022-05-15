@@ -83,7 +83,9 @@
                         <label for="email">Add Guest:</label>
                         <select name="email" class="form-control">
                             {% for guest in users %}
+                            {% if guest.id not in event.guests | map(attribute = "id") %}
                             <option value="{{guest.email}}">{{guest.email}}</option>
+                            {% endif %}
                             {% endfor %}
                             <div class="mx-5">
                                 <input type="submit" class="btn btn-primary my-2" value="Add">

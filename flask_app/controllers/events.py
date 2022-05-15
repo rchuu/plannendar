@@ -49,12 +49,11 @@ def edit_event(id):
 
 @app.route('/update/event', methods=['POST'])
 def update_event():
-    print(request.form)
     if 'user_id' not in session:
         return redirect('/logout')
     if not Event.validate_event(request.form):
         return redirect('/add/event')
-    guest_id = User.get_from_email(request.form['email'])
+    # guest_id = User.get_from_email(request.form['email'])
 
     data = {
         "event": request.form["event"],
@@ -63,8 +62,9 @@ def update_event():
         "start_date": request.form["start_date"],
         "end_date": request.form["end_date"],
         "location": request.form["location"],
-        "event_id": request.form["event_id"],
-        "guest_id": guest_id,
+        # "event_id": request.form["event_id"],
+        "id": request.form["event_id"],
+        # "guest_id": guest_id,
         "user_id": session['user_id']
     }
     Event.update(data)
@@ -101,7 +101,7 @@ def add_guests():
         return redirect('/logout')
 
     guest = User.get_from_email({"email": request.form['email']})
-    print(guest, "****************")
+    # print(guest, "****************")
     data = {
         "user_id": guest.id,
         "event_id": request.form['event_id']
