@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
         <script src="https://kit.fontawesome.com/10b2c21570.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -16,12 +17,11 @@
             crossorigin="anonymous"></script>
 
     </head>
-
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static', filename='/img/Plannendar-logo-white.png') }}" alt="icon" width="120"
-                    height="80">
+                <img src="{{ url_for('static', filename='/img/Plannendar-logo-white.png') }}" alt="icon" width="150"
+                    height="90">
             </a>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
@@ -35,25 +35,12 @@
             </div>
         </div>
     </nav>
-    <!-- <nav class="d-flex justify-content-between align-items-center mx-5 py-3 bg-dark text-light">
-        <div>
-            <img src="{{ url_for('static', filename='/img/Plannendar-logo-white.png') }}" class="w-25 img-fluid"
-                alt="icon">
-        </div>
-        <div class="d-flex flex-column align-items-end">
-            <div>
-                <h3 class="text-center">Welcome, {{user.first_name}} {{user.last_name}}</h3>
-            </div>
-            <div><a href="/add/event" value="Create" class="btn btn-primary py-1 my-1">Add Event</a></div>
-            <div><a href="/logout" value="Logout" class="btn btn-primary py-1 my-1">Logout</a></div>
-        </div>
-    </nav> -->
 
-
-    <body class="bg-dark">
-        <div class="col-8 mx-auto py-5">
-            <table class="table table-hover bg-secondary table-responsive form-control-md">
-                <thead class="table-secondary">
+    <body id="background">
+        <div
+            class="col-8 mx-auto py-5 d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle">
+            <table class="table table-hover table-transparent table-responsive form-control-md">
+                <thead class="bg-dark text-light">
                     <tr>
                         <th>Event</th>
                         <th>Start Date</th>

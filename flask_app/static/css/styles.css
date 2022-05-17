@@ -1,0 +1,39 @@
+#background {
+    background-image: url("../img/wooden-calendar-sits-on-a-white-background.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+}
+
+#background1 {
+    background-image: url("../img/a-close-up-of-a-2021-planner.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+}
+
+#background2 {
+    background-image: url("../img/Plannendar-logo-white.jpg");
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+}
+
+#logo {
+    max-width: 350px;
+    width: 100%;
+    object-fit: contain;
+    object-fit: scale-down;
+}

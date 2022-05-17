@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
         <script src="https://kit.fontawesome.com/10b2c21570.js" crossorigin="anonymous"></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
             integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -16,9 +17,12 @@
             crossorigin="anonymous"></script>
     </head>
 
-    <body class="bg-dark">
+    <body id="background">
+        <div class="d-flex justify-content-center">
+            <img id="logo" class="width-10" src="{{ url_for('static', filename='/img/Plannendar-logo-black.png') }}">
+        </div>
         <div
-            class="container d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle bg-transparent text-secondary">
+            class="container d-flex justify-content-center align-items-center position-absolute top-50 start-50 translate-middle bg-transparent">
             <form class="content bg-transparent col-xs-12 col-sm-10 col-md-8 col-lg-6 mb-5" action="/login"
                 method="post">
                 <div class="form-group text-left p-2">
@@ -40,7 +44,7 @@
                     <input type="password" class="form-control mb-2" name="password" placeholder="Password">
                     <!-- <p>Don't have an account? <a href="/register/">Create one here!</a></p> -->
                     <input type='submit' value='Login'
-                        class="btn d-flex align-items-center  text-decoration-none btn-primary float-end">
+                        class="btn d-flex align-items-center text-decoration-none btn-dark float-end">
                 </div>
             </form>
             <form class="bg-transparent p-3 col-xs-12 col-sm-10 col-md-8 col-lg-6 mb-5" action="/register"
@@ -66,15 +70,9 @@
                     <input type="password" class="form-control mb-2" name="confirm" placeholder="Confirm Password">
                     <!-- <p class="">Already have an account? <a href="/" class="">Login Here!</a></p> -->
                     <input type='submit' value='Register'
-                        class="btn d-flex align-items-center text-decoration-none btn-primary float-end mx-2">
+                        class="btn d-flex align-items-center text-decoration-none btn-dark float-end mx-2">
                 </div>
             </form>
-        </div>
-        <div>
-            <img src="{{ url_for('static', filename='/img/Plannendar-logo-white.png') }}" class="w-10 img-fluid"
-                alt="icon">
-        </div>
-        <div>
         </div>
     </body>
 
