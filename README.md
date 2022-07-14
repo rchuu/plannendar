@@ -1,21 +1,3 @@
-# flask-template-files
+Event coordinate application with messaging capabilities
 
-
-# Update the following files
-server.py - line 2 to add all your controllers
-flask_app/__init__.py - to update the way you chose to have your secret key
-flask_app/config/mysqlyconnection.py -  to have the right user/password combo
-
-
-**** Otherwise these files never change *****
-
-
-## The following files are empty and can be edited / renamed to work for you app
-controllers/users.py
-models/user.py
-static/css/styles.css
-static/js/scripts.js
-
-
-## The template folder contains a index.html prefilled with basics of linked css and js as well as the block menu so that you can update the nav links on just the menu.html file
-# plannendar_flask
+<img width="1493" alt="image" src="https://user-images.githubusercontent.com/98778914/178881598-f5bd21a4-2a25-4996-accb-f5aaddba37c3.png">
