@@ -8,7 +8,7 @@ Event coordinate application with messaging capabilities
 <br>
 <img width="1474" alt="image" src="https://user-images.githubusercontent.com/98778914/178882654-804feef1-91cd-4be7-9a7f-460adddac594.png">
 <br>
-<img width="1474" alt="image" src="https://user-images.githubusercontent.com/98778914/178882786-459deeab-4951-4c60-9bbe-7de1707f30a0.png">
+<img width="1478" alt="image" src="https://user-images.githubusercontent.com/98778914/178883059-e36413b9-f15c-4165-9b1e-7ae389698c71.png">
 <br>
 <img width="1491" alt="image" src="https://user-images.githubusercontent.com/98778914/178882888-426ef6a2-0b93-4c98-9c03-574ed03bc5dc.png">
 <br>
